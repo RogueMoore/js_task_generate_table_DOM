@@ -354,7 +354,29 @@ const people = [
   },
 ];
 
-// eslint-disable-next-line no-console
-console.log(people); // you can remove it
+const peopleForTable = people.map((p) => ({
+  name: p.name,
+  gender: p.sex,
+  born: p.born,
+  died: p.died,
+  age: p.died - p.born,
+  century: Math.ceil(p.died / 100),
+}));
 
-// write your code here
+const table = document.querySelector('.dashboard');
+
+function createPersonMarkup(person) {
+  const row = document.createElement('tr');
+
+  for (const key in person) {
+    const cell = document.createElement('td');
+
+    cell.textContent = person[key];
+
+    row.append(cell);
+  }
+
+  table.append(row);
+}
+
+peopleForTable.forEach((person) => createPersonMarkup(person));
